@@ -1,4 +1,3 @@
-// screens/AdminMessagesScreen.js
 import React, { useState, useEffect } from "react";
 import { View, Text, FlatList, StyleSheet } from "react-native";
 import api from "../utils/api";
@@ -19,14 +18,14 @@ export default function AdminMessagesScreen() {
   return (
     <FlatList
       data={msgs}
-      keyExtractor={item => item._id}
+      keyExtractor={item => item.id.toString()}
       contentContainerStyle={styles.list}
       renderItem={({ item }) => (
         <View style={styles.card}>
           <Text style={styles.user}>
-            {item.userId.name} ({item.userId.email})
+            {(item.name || item.sender?.name) ?? "?"} ({(item.email || item.sender?.email) ?? "?"})
           </Text>
-          <Text style={styles.text}>{item.text}</Text>
+          <Text style={styles.text}>{item.message}</Text>
           <Text style={styles.date}>
             {new Date(item.createdAt).toLocaleString()}
           </Text>
